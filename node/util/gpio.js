@@ -18,7 +18,7 @@ function GPIO(pin, mode) {
         var data = 0;
         sh.exec(cmd + ' read ' + this.pin, {async: false}, function(code, output) {
             if (code == 0) {
-                data = parseInt(output);
+                data = parseInt(output.trim());
             }
         });
         return { fan_status: data != 0 };
