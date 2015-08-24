@@ -1,35 +1,44 @@
-function gpio() {
-    
+var sh = require('shelljs');
+
+function GPIO(pin, mode) {
+
     var emptyResponse = { fan_status: false };
 
-    this.read = function() {
-        return this.emptyResponse;
+    var cmd = '/usr/local/bin/gpio -1';
+
+    if (mode === undefined) {
+        mode = 'output';
     }
 
-    this.mode = function() {
-
-    };
+    this.mode = function(mode) {
+        sh.exec(cmd + ' mode ' + this.pin + ' ' + mode);
+    }
 
     this.read = function() {
-        return emptyResponse;
-    };
+        var data = 0;
+        sh.exec(cmd + ' read ' + this.pin, {async: false}, function(code, output) {
+            if (code == 0) {
+                data = parseInt(output);
+            }
+        });
+        return { fan_status: data != 0 };
+    }
 
     this.write = function(value) {
+        sh.exec(cmd + ' write ' + this.pin + ' ' + ~~value);
         return { fan_status: value };
-    };
+    }
 
     this.on = function() {
-        return write(true);
-    };
+        return this.write(true);
+    }
 
     this.off = function() {
-        return write(false);
-    };
+        return this.write(false);
+    }
 
-    return this;
-};
+    this.pin = pin;
+    this.mode(mode);
+}
 
-module.exports = function(req, res, next) {
-    req.gpio = gpio();
-    next();
-};
+exports.Super = GPIO;

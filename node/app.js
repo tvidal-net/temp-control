@@ -4,13 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var sqlite3 = require('sqlite3').verbose();
-var sh = require('shelljs');
-
-var gpio = require('./util/gpio');
 
 var routes = require('./routes/index');
 var api = require('./routes/api');
+
+var fan = require('./util/fan');
 
 var app = express();
 
@@ -25,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(gpio);
+app.use(fan);
 
 app.use('/', routes);
 app.use('/api', api);
