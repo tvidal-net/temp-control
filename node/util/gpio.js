@@ -15,12 +15,20 @@ function GPIO(pin, mode) {
     }
 
     this.read = function() {
-        var data = 0;
-        sh.exec(cmd + ' read ' + this.pin, {async: false}, function(code, output) {
-            if (code == 0) {
-                data = parseInt(output.trim());
-            }
-        });
+        var options = { silent: true };
+        var child = sh.exec(cmd + ' read ' + this.pin, options);
+        var output = child.output;
+        console.log('Output: ' + output);
+        
+        var data = parseInt(output.trim());
+        // sh.exec(cmd + ' read ' + this.pin, options, function(code, output) {
+        //     if (code == 0) {
+        //         console.log('Code: ' + code);
+        //         console.log('Output: ' + output.trim());
+        //         data = parseInt(output.trim());
+        //     }
+        // });
+        console.log('Data: ' + data);
         return { fan_status: data != 0 };
     }
 
