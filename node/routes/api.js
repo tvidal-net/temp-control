@@ -1,29 +1,9 @@
 var express = require('express');
-var router = express.Router();
+var fan = require('../routes/fan');
+var temp = require('../routes/temp');
+var app = express();
 
-router.get('/fan', function(req, res, next) {
-    res.send(req.fan.read());
-});
+app.use('/fan', fan);
+app.use('/temp', temp);
 
-router.put('/fan', function(req, res, next) {
-    var value = req.body.fan_status;
-    res.send(req.fan.write(value));
-});
-
-router.post('/fan', function(req, res, next) {
-    res.send(req.fan.on());
-});
-
-router.delete('/fan', function(req, res, next) {
-    res.send(req.fan.off());
-});
-
-router.get('/fan/on', function(req, res, next) {
-    res.send(req.fan.on());
-});
-
-router.get('/fan/off', function(req, res, next) {
-    res.send(req.fan.off());
-});
-
-module.exports = router;
+module.exports = app;

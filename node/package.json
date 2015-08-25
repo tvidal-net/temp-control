@@ -14,6 +14,7 @@
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
     "shelljs": "^0.5.3",
-    "sqlite3": "^3.0.10"
+    "sqlite3": "^3.0.10",
+    "squel": "^4.1.0"
   }
 }
