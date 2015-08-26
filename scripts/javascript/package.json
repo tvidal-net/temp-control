@@ -1,9 +1,0 @@
-{
-  "name": "temp-control",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {},
-  "dependencies": {
-    "shelljs": "latest"
-  }
-}
