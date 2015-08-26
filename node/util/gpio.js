@@ -39,4 +39,4 @@ function GPIO(pin, mode) {
     this.mode(mode);
 }
 
-exports.Super = GPIO;
+module.exports = GPIO;

@@ -1,18 +1,17 @@
-var gpio = require('../util/gpio');
+var GPIO = require('../util/gpio');
+
+var pin = 40;
+var mode = 'output';
 
 function Fan() {
-
-    var pin = 40;
-    var mode = 'output';
-
-    gpio.Super.call(this, pin, mode);
+    GPIO.call(this, pin, mode);
 }
-Fan.prototype = Object.create(gpio.Super.prototype);
+Fan.prototype = Object.create(GPIO.prototype);
 Fan.prototype.constructor = Fan;
 
-Fan.call(exports);
+var fan = Fan();
 
 module.exports = function(req, res, next) {
-    req.fan = exports;
+    req.fan = fan;
     next();
 }

@@ -11,10 +11,12 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "jade": "~1.11.0",
+    "moment": "^2.10.6",
     "morgan": "~1.6.1",
+    "sequelize": "^3.6.0",
+    "sequelize-cli": "^1.7.4",
     "serve-favicon": "~2.3.0",
     "shelljs": "^0.5.3",
-    "sqlite3": "^3.0.10",
-    "squel": "^4.1.0"
+    "sqlite3": "^3.0.10"
   }
 }
