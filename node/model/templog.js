@@ -7,15 +7,13 @@ var cnn = new Sequelize('database', 'username', 'password', config.database);
 var templog = cnn.define("templog", {
 
     datetime: {
-        field: 'timestamp',
         type: Sequelize.DATE,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
     },
 
     temp: {
-        field: 'temp',
-        type: Sequelize.DECIMAL(6, 3),
+        type: Sequelize.DECIMAL,
         allowNull: false
    }
 
@@ -26,7 +24,7 @@ var templog = cnn.define("templog", {
     tableName: 'temps',
 
     defaultScope: {
-        order: 'timestamp DESC',
+        order: 'datetime DESC',
         limit: 10
     }
 });
@@ -40,6 +38,8 @@ function TempLog() {
     this.last = function(count) {
         return templog.findAll({ limit: count });
     }
+
+    // cnn.sync({ force: true });
 }
 
 var db = new TempLog();
