@@ -1,12 +1,11 @@
 var config = require('../config/config.js');
 var Sequelize = require('sequelize');
-var util = require('util');
 
-var cnn = new Sequelize('database', 'username', 'password', config.database);
+var cnn = new Sequelize('', '', '', config.database);
 
-var templog = cnn.define("templog", {
+var templog = cnn.define('templog', {
 
-    datetime: {
+    timestamp: {
         type: Sequelize.DATE,
         allowNull: false,
         primaryKey: true,
@@ -20,12 +19,11 @@ var templog = cnn.define("templog", {
 }, {
     timestamps: true,
     updatedAt: false,
-    createdAt: 'datetime',
+    createdAt: 'timestamp',
     tableName: 'temps',
 
     defaultScope: {
-        order: 'datetime DESC',
-        limit: 10
+        order: 'timestamp DESC'
     }
 });
 
@@ -35,8 +33,22 @@ function TempLog() {
         return templog.findAll();
     }
 
-    this.last = function(count) {
-        return templog.findAll({ limit: count });
+    this.last = function(params) {
+
+        var scopes = ['defaultScope'];
+
+        var count = parseInt(params.count);
+        if (!isNaN(count)) {
+            scopes.push({ limit: count });
+        }
+
+        var hours = parseInt(params.hours);
+        if (!isNaN(hours)) {
+            var whereClause = "timestamp >= date('now', '-" + hours + " hours')";
+            scopes.push({ where: [whereClause] });
+        }
+
+        return templog.scope(scopes).findAll();
     }
 
     // cnn.sync({ force: true });
