@@ -44,7 +44,7 @@ function TempLog() {
 
         var hours = parseInt(params.hours);
         if (!isNaN(hours)) {
-            var whereClause = "timestamp >= date('now', '-" + hours + " hours')";
+            var whereClause = "timestamp >= datetime('now', '-" + hours + " hours', 'localtime')";
             scopes.push({ where: [whereClause] });
         }
 
