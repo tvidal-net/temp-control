@@ -1,4 +1,5 @@
 var sh = require('shelljs');
+var fs = require('fs');
 
 var deviceList = '/sys/bus/w1/devices/28*';
 var deviceName = '/w1_slave';
