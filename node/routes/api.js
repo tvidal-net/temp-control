@@ -1,6 +1,6 @@
 var express = require('express');
-var fan = require('../controllers/fan');
-var temp = require('../controllers/temp');
+var fan = require('../routes/fan');
+var temp = require('../routes/temp');
 var app = express();
 
 app.use('/fan', fan);
