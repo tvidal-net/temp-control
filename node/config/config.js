@@ -9,6 +9,14 @@ var config = {
         development: true
     },
 
+    pi: {
+        database: {
+            dialect: 'sqlite',
+            storage: '/var/www/templog.db'
+        },
+        development: true
+    },
+
     production: {
         database: 'sqlite:/opt/data/temp-control/templog.db'
     }
