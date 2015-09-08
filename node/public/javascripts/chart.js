@@ -1,0 +1,61 @@
+google.setOnLoadCallback(function() {
+    angular.bootstrap(document.body, ['temp-control']);
+});
+
+google.load("visualization", "1", {packages:["corechart"]});
+
+var tempControl = tempControl || angular.module('temp-control', ['google-chart']);
+
+tempControl.controller('IndexCtrl', ['$scope', function($scope) {
+
+    var data = new google.visualization.DataTable({ cols: [
+        { id: "timestamp", label: "Date/Time", type: "datetime" },
+        { id: "temp", label: "Temperature", type: "number" }
+    ]});
+
+    var max = chartData.length ? Number.MIN_SAFE_INTEGER : 0;
+    var min = chartData.length ? Number.MAX_SAFE_INTEGER : 0;
+    var sum = 0;
+
+    chartData.forEach(function(value) {
+        data.addRow([new Date(value.timestamp), value.temp]);
+        if (value.temp > max) {
+            max = value.temp;
+        }
+        if (value.temp < min) {
+            min = value.temp;
+        }
+        sum += value.temp;
+    });
+
+    $scope.temperatures = {
+        dataTable: data,
+        title: 'Temperatures',
+        max: max.toFixed(2),
+        min: min.toFixed(2),
+        avg: chartData.length ? (sum / chartData.length).toFixed(2) : 0
+    }
+
+    $scope.fan = function(value) {
+        window.alert('Fan: ' + value);
+    }
+
+}]);
+
+var googleChart = googleChart || angular.module('google-chart', []);
+
+googleChart.directive('googleChart', function() {
+    return {
+        restrict: 'A',
+        link: function($scope, $elem, $attr) {
+            var dataTable = $scope[$attr.ngModel].dataTable;
+
+            var options = {};
+            if($scope[$attr.ngModel].title)
+                options.title = $scope[$attr.ngModel].title;
+
+            var googleChart = new google.visualization[$attr.googleChart]($elem[0]);
+            googleChart.draw(dataTable, options);
+        }
+     };
+});

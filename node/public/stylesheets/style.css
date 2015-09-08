@@ -6,3 +6,52 @@ body {
 a {
   color: #00B7FF;
 }
+
+#chart_div {
+    width: 900px;
+    height: 500px;
+}
+
+tbody, thead tr {
+    display: block;
+}
+
+tbody {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+table.templog {
+    width: 450px;
+    border-spacing: 0;
+}
+
+table.templog > tbody {
+    max-height: 500px;
+}
+
+table.templog td, table.templog th {
+    width: 221px;
+}
+
+table.templog th:last-child {
+    width: 237px;
+}
+
+#tempChart {
+    float: left;
+}
+
+#summary {
+    float: left;
+    margin-left: 32px;
+    border: solid 1px orange;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}

@@ -2,4 +2,36 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  h2 Temperature Chart
+
+  div(ng-controller="IndexCtrl", ng-cloak)
+    #chart_div(google-chart="LineChart", ng-model="temperatures")
+    hr
+
+    h2 In the last hour:
+    #tempChart
+
+      table.templog
+        thead
+          tr
+            th Date/Time
+            th.right Temperature
+        tbody
+          each item in data
+            tr
+              td.center= item.timestamp
+              td.right= item.temp.toFixed(3)
+                &nbsp;&ordm;C
+
+    #summary
+      h2 Minimum Temperature:&nbsp;
+        {{ temperatures.min }} &ordm;C
+
+      h2 Maximum Temperature:&nbsp;
+        {{ temperatures.max }} &ordm;C
+
+      h2 Average Temperature:&nbsp;
+        {{ temperatures.avg }} &ordm;C
+
+  script
+    | var chartData = !{script}

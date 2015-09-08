@@ -1,6 +1,12 @@
+"use strict";
+
 var sh = require('shelljs');
 
 function GPIO(pin, mode) {
+
+    if (!(this instanceof GPIO)) {
+        return new GPIO(pin, mode);
+    }
 
     var emptyResponse = { fan_status: false };
 

@@ -1,3 +1,5 @@
+"use strict";
+
 var temp = require('../util/temp');
 var express = require('express');
 var router = express.Router();

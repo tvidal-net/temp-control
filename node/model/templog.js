@@ -1,3 +1,5 @@
+"use strict";
+
 var config = require('../config/config.js');
 var Sequelize = require('sequelize');
 
@@ -30,7 +32,7 @@ var templog = cnn.define('templog', {
 function TempLog() {
 
     this.list = function() {
-        return templog.findAll();
+        return templog.findAll({ limit: 10 });
     }
 
     this.last = function(params) {

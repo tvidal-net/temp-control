@@ -1,3 +1,5 @@
+"use strict";
+
 var sh = require('shelljs');
 var fs = require('fs');
 

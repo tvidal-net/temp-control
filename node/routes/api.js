@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var fan = require('../routes/fan');
 var temp = require('../routes/temp');
