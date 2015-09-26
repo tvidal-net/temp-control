@@ -3,8 +3,9 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/angular/angular.js")
   body
     block content
-    script(src="https://www.google.com/jsapi")
-    script(src="/angular/angular.js")
+    - var autoload = "{'modules':[{'name':'visualization','version': '1','packages':['corechart']}]}"
+    script(src="https://www.google.com/jsapi?autoload=" + autoload)
     script(src="/javascripts/chart.js")

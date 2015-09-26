@@ -5,33 +5,36 @@ block content
   h2 Temperature Chart
 
   div(ng-controller="IndexCtrl", ng-cloak)
+    button(ng-click='fan()', ng-model='fan_status')
+      | Fan: {{ fan_status ? 'On' : 'Off' }}
+
     #chart_div(google-chart="LineChart", ng-model="temperatures")
     hr
 
     h2 In the last hour:
-    #tempChart
-
+    #tempTable
       table.templog
         thead
           tr
             th Date/Time
             th.right Temperature
         tbody
-          each item in data
+          each item in tableData
             tr
               td.center= item.timestamp
               td.right= item.temp.toFixed(3)
-                &nbsp;&ordm;C
+                | &nbsp;&ordm;C
 
     #summary
       h2 Minimum Temperature:&nbsp;
-        {{ temperatures.min }} &ordm;C
+        | {{ temperatures.min }} &ordm;C
 
       h2 Maximum Temperature:&nbsp;
-        {{ temperatures.max }} &ordm;C
+        | {{ temperatures.max }} &ordm;C
 
       h2 Average Temperature:&nbsp;
-        {{ temperatures.avg }} &ordm;C
+        | {{ temperatures.avg }} &ordm;C
 
   script
-    | var chartData = !{script}
+    | var fan_status = !{fan_status};
+    | var chartData = !{chartData};

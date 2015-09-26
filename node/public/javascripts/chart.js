@@ -2,12 +2,9 @@ google.setOnLoadCallback(function() {
     angular.bootstrap(document.body, ['temp-control']);
 });
 
-google.load("visualization", "1", {packages:["corechart"]});
-
-var tempControl = tempControl || angular.module('temp-control', ['google-chart']);
-
-tempControl.controller('IndexCtrl', ['$scope', function($scope) {
-
+angular.module('temp-control', ['google-chart']).controller('IndexCtrl',
+        ['$scope', '$http', function($scope, $http) {
+    
     var data = new google.visualization.DataTable({ cols: [
         { id: "timestamp", label: "Date/Time", type: "datetime" },
         { id: "temp", label: "Temperature", type: "number" }
@@ -36,23 +33,33 @@ tempControl.controller('IndexCtrl', ['$scope', function($scope) {
         avg: chartData.length ? (sum / chartData.length).toFixed(2) : 0
     }
 
-    $scope.fan = function(value) {
-        window.alert('Fan: ' + value);
+    $scope.fan_status = fan_status;
+
+    $scope.fan = function(clickEvent) {
+        $http.put('api/fan', { fan_status: !$scope.fan_status }).then(function(response) {
+            $scope.fan_status = response.data.fan_status;
+        });
     }
 
 }]);
 
-var googleChart = googleChart || angular.module('google-chart', []);
+angular.module('google-chart', []).directive('googleChart',
+        function() {
 
-googleChart.directive('googleChart', function() {
     return {
         restrict: 'A',
         link: function($scope, $elem, $attr) {
             var dataTable = $scope[$attr.ngModel].dataTable;
 
-            var options = {};
-            if($scope[$attr.ngModel].title)
+            var options = {
+                legend: { position: 'in' },
+                animation: { duration: 1200, easing: 'out', startup: true },
+                curveType: 'function'
+            };
+
+            if($scope[$attr.ngModel].title) {
                 options.title = $scope[$attr.ngModel].title;
+            }
 
             var googleChart = new google.visualization[$attr.googleChart]($elem[0]);
             googleChart.draw(dataTable, options);

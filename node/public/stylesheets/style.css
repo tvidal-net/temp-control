@@ -38,14 +38,13 @@ table.templog th:last-child {
     width: 237px;
 }
 
-#tempChart {
+#tempTable {
     float: left;
 }
 
 #summary {
     float: left;
     margin-left: 32px;
-    border: solid 1px orange;
 }
 
 .center {
