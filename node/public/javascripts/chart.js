@@ -41,6 +41,14 @@ angular.module('temp-control', ['google-chart']).controller('IndexCtrl',
         });
     }
 
+    $scope.test = function(clickEvent) {
+        var dataTable = $scope.temperatures.dataTable;
+        for (i = 0; i < dataTable.getNumberOfRows(); i++) {
+            dataTable.setValue(i, 1, $scope.temperatures.avg);
+        }
+        $scope.temperatures.drawChart();
+    }
+
 }]);
 
 angular.module('google-chart', []).directive('googleChart',
@@ -51,18 +59,22 @@ angular.module('google-chart', []).directive('googleChart',
         link: function($scope, $elem, $attr) {
             var dataTable = $scope[$attr.ngModel].dataTable;
 
-            var options = {
-                legend: { position: 'in' },
-                animation: { duration: 1200, easing: 'out', startup: true },
-                curveType: 'function'
-            };
-
-            if($scope[$attr.ngModel].title) {
-                options.title = $scope[$attr.ngModel].title;
-            }
-
             var googleChart = new google.visualization[$attr.googleChart]($elem[0]);
-            googleChart.draw(dataTable, options);
+            ($scope[$attr.ngModel].drawChart = function() {
+
+                var options = {
+                    legend: { position: 'in' },
+                    animation: { duration: 600, easing: 'out', startup: true },
+                    curveType: 'function'
+                };
+
+                if($scope[$attr.ngModel].title) {
+                    options.title = $scope[$attr.ngModel].title;
+                }
+
+                googleChart.draw(dataTable, options);
+
+            })();
         }
      };
 });

@@ -5,8 +5,11 @@ block content
   h2 Temperature Chart
 
   div(ng-controller="IndexCtrl", ng-cloak)
-    button(ng-click='fan()', ng-model='fan_status')
+    
+    button(ng-click='fan()')
       | Fan: {{ fan_status ? 'On' : 'Off' }}
+
+    button(ng-click='test()') Test
 
     #chart_div(google-chart="LineChart", ng-model="temperatures")
     hr
