@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+BASE_DIR=$0:h:h:a
+SERVICE_NAME="temp-control"
+TARGET_DIR="/opt/$SERVICE_NAME"
+
+if [[ $(uname -m) != arm* ]]; then
+    >&2 echo "Please run $0 in the raspberry-pi."
+    return 1
+fi
+
+sudo service $SERVICE_NAME stop
+rsync -avC --del "$BASE_DIR/." "$TARGET_DIR"
+sudo service $SERVICE_NAME install
+sudo service $SERVICE_NAME start
