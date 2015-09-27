@@ -41,14 +41,6 @@ angular.module('temp-control', ['google-chart']).controller('IndexCtrl',
         });
     }
 
-    $scope.test = function(clickEvent) {
-        var dataTable = $scope.temperatures.dataTable;
-        for (i = 0; i < dataTable.getNumberOfRows(); i++) {
-            dataTable.setValue(i, 1, $scope.temperatures.avg);
-        }
-        $scope.temperatures.drawChart();
-    }
-
 }]);
 
 angular.module('google-chart', []).directive('googleChart',

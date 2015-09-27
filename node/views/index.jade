@@ -7,9 +7,7 @@ block content
   div(ng-controller="IndexCtrl", ng-cloak)
     
     button(ng-click='fan()')
-      | Fan: {{ fan_status ? 'On' : 'Off' }}
-
-    button(ng-click='test()') Test
+      | Fan: {{ fan_status ? 'Off' : 'On' }}
 
     #chart_div(google-chart="LineChart", ng-model="temperatures")
     hr
