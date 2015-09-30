@@ -1,31 +1,18 @@
-"use strict";
+'use strict'
 
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res) {
-    res.send(req.fan.read());
-});
-
-router.put('/', function(req, res) {
-    var value = req.body.fan_status;
-    res.send(req.fan.write(value));
-});
-
-router.post('/', function(req, res) {
-    res.send(req.fan.on());
-});
-
-router.delete('/', function(req, res) {
-    res.send(req.fan.off());
-});
-
-router.get('/on', function(req, res) {
-    res.send(req.fan.on());
-});
-
-router.get('/off', function(req, res) {
-    res.send(req.fan.off());
-});
+router
+    .get('/', (req, res) => res.send(req.fan.read()))
+    .post('/', (req, res) => res.send(req.fan.on()))
+    .delete('/', (req, res) => res.send(req.fan.off()))
+    .get('/on', (req, res) => res.send(req.fan.on()))
+    .get('/off', (req, res) => res.send(req.fan.off()))
+    .put('/', (req, res) => {
+        console.log(req.body);
+        var value = req.body.fan_status;
+        res.send(req.fan.write(value));
+    });
 
 module.exports = router;

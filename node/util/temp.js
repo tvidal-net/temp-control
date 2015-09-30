@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 var sh = require('shelljs');
 var fs = require('fs');
@@ -9,7 +9,7 @@ var fileReadOptions = { encoding: 'utf8' };
 var deviceFile = sh.ls(deviceList).shift();
 
 module.exports = {
-    read: function() {
+    read: () => {
         if (deviceFile) {
             var fileName = deviceFile + deviceName;
             var data = fs.readFileSync(fileName, fileReadOptions).split('\n');

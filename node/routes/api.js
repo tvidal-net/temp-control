@@ -1,11 +1,11 @@
-"use strict";
+'use strict'
 
 var express = require('express');
 var fan = require('../routes/fan');
 var temp = require('../routes/temp');
 var app = express();
 
-app.use('/fan', fan);
-app.use('/temp', temp);
+app.use('/fan', fan)
+    .use('/temp', temp);
 
 module.exports = app;

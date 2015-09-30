@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 var GPIO = require('../util/gpio');
 
@@ -17,7 +17,7 @@ Fan.prototype.constructor = Fan;
 
 var fan = new Fan();
 
-module.exports = function(req, res, next) {
+module.exports = (req, res, next) => {
     req.fan = fan;
     next();
 }

@@ -6,8 +6,8 @@ angular.module('temp-control', ['google-chart']).controller('IndexCtrl',
         ['$scope', '$http', function($scope, $http) {
     
     var data = new google.visualization.DataTable({ cols: [
-        { id: "timestamp", label: "Date/Time", type: "datetime" },
-        { id: "temp", label: "Temperature", type: "number" }
+        { id: 'timestamp', label: 'Date/Time', type: 'datetime' },
+        { id: 'temp', label: 'Temperature', type: 'number' }
     ]});
 
     var max = chartData.length ? Number.MIN_SAFE_INTEGER : 0;

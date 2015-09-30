@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 var config = require('../config/config.js');
 var Sequelize = require('sequelize');
@@ -31,11 +31,9 @@ var templog = cnn.define('templog', {
 
 function TempLog() {
 
-    this.list = function() {
-        return templog.findAll({ limit: 10 });
-    }
+    this.list = () => templog.findAll({ limit: 10 });
 
-    this.last = function(params) {
+    this.last = (params) => {
 
         var scopes = ['defaultScope'];
 
@@ -58,7 +56,7 @@ function TempLog() {
 
 var db = new TempLog();
 
-module.exports = function(req, res, next) {
+module.exports = (req, res, next) => {
     req.db = db;
     next();
 }

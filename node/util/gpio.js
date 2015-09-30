@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 var sh = require('shelljs');
 
@@ -16,11 +16,9 @@ function GPIO(pin, mode) {
         mode = 'output';
     }
 
-    this.mode = function(mode) {
-        sh.exec(cmd + ' mode ' + this.pin + ' ' + mode);
-    }
+    this.mode = (mode) => sh.exec(cmd + ' mode ' + this.pin + ' ' + mode);
 
-    this.read = function() {
+    this.read = () => {
         var options = { silent: true };
         var child = sh.exec(cmd + ' read ' + this.pin, options);
         var output = child.output;
@@ -28,18 +26,14 @@ function GPIO(pin, mode) {
         return { fan_status: data != 0 };
     }
 
-    this.write = function(value) {
+    this.write = (value) => {
         sh.exec(cmd + ' write ' + this.pin + ' ' + ~~value);
-        return { fan_status: value };
+        return { fan_status: !!value };
     }
 
-    this.on = function() {
-        return this.write(true);
-    }
+    this.on = () => this.write(true);
 
-    this.off = function() {
-        return this.write(false);
-    }
+    this.off = () => this.write(false);
 
     this.pin = pin;
     this.mode(mode);
